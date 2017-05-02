@@ -7,8 +7,6 @@
 from datetime import datetime, timedelta
 from time import time
 from poloniex import Poloniex
-from random import randint
-import matplotlib.pyplot as plt, mpld3
 
 import pdb
 
@@ -19,13 +17,13 @@ def getData(currency, length, delta):
     end = time()
     return polo.returnChartData(currency, delta, start, end)
 
-
 def run(algo, currency='btc_xmr', length=30, delta=900, outputDir='./'):
     '''
-    algo -> Algo object. Must implement tick!()
-    currency -> poloniex currency pair
-    length -> num days
-    delta -> how many data points to test on.  
+    Params:
+        algo -> Algo object. Must implement tick()
+        currency -> Poloniex currency_pair
+        length -> Number of days to run test on.
+        delta -> Period of readings to run test on.
     '''
     
     # Pull all the data
@@ -35,7 +33,6 @@ def run(algo, currency='btc_xmr', length=30, delta=900, outputDir='./'):
     
     for i, frame in enumerate(data):
         #d = datetime.utcfromtimestamp(float(frame['date']))
-        #pdb.set_trace()
         result = algo.tick(data[0:i])
         action = result[0]
         if action in ['BUY', 'SELL']:
@@ -67,19 +64,3 @@ class Algo:
             return 'SELL', 100
         else:
             return 'NOTHING'
-
-stubAlgo = Algo()
-results = run(stubAlgo, currency='USDT_BTC')
-
-#print 'First 10 executions: ' + str(results[1][0:10])
-print 'total profit: ' + str(sum(results[1]))
-
-
-'''
-tickers = polo.returnTicker()
-
-keys = [key for key, value in tickers.iteritems()]
-#print sorted(keys)
-for item in sorted(keys):
-    print item
-'''
