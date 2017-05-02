@@ -10,10 +10,6 @@ from poloniex import Poloniex
 from random import randint
 import matplotlib.pyplot as plt, mpld3
 
-#plt.plot([3,1,4,1,5], 'ks-', mec='w', mew=5, ms=20)
-#mpld3.show()
-
-
 import pdb
 
 polo = Poloniex()
@@ -78,12 +74,6 @@ results = run(stubAlgo, currency='USDT_BTC')
 #print 'First 10 executions: ' + str(results[1][0:10])
 print 'total profit: ' + str(sum(results[1]))
 
-'''
-results_2 = run(stubAlgo, currency='USDT_XMR')
-
-print 'First 10 executions: ' + str(results_2[1][0:10])
-print 'total profit: ' + str(sum(results_2[1]))
-'''
 
 '''
 tickers = polo.returnTicker()
@@ -93,6 +83,3 @@ keys = [key for key, value in tickers.iteritems()]
 for item in sorted(keys):
     print item
 '''
-#for key, value in tickers.iteritems():
-    #print key
-#print tickers
